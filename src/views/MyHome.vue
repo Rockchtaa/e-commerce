@@ -1,12 +1,20 @@
 <template>
     <div>
-      <h1>Welcome to the Home Page</h1>
+      <UpperBanner />
+      <TheFeaturesApp />
     </div>
 </template>
 
 <script>
+import TheFeaturesApp from '@/components/Home-page/TheFeaturesApp.vue';
+import UpperBanner from '@/components/Home-page/UpperBanner.vue';
+
 export default {
-    name: 'MyHome'
+    name: 'MyHome',
+    components: {
+        UpperBanner,
+        TheFeaturesApp
+    }
 }
 </script>
   

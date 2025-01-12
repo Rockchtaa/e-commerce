@@ -101,9 +101,10 @@
 
 <script>
 export default {
+  inject: ['emitter'],
   data() {
     return {
-      selectedLanguage: "EN / USD", // Default selected language
+      selectedLanguage: "EN / USD", 
       selectedFlag: "https://upload.wikimedia.org/wikipedia/commons/8/83/Flag_of_the_United_Kingdom_%283-5%29.svg",
       languageOptions: [
         {
@@ -120,10 +121,9 @@ export default {
     };
   },
   methods: {
-    inject: ["emitter"],
     selectLanguage(option) {
-      this.selectedLanguage = option.label; // Update displayed language
-      this.selectedFlag = option.flag; // Update displayed flag
+      this.selectedLanguage = option.label;
+      this.selectedFlag = option.flag; 
     },
   
     toggleCart() {

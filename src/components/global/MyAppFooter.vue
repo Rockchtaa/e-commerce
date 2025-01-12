@@ -1,6 +1,6 @@
 <template>
   <div class="app-footer">
-    <v-footer :app="true">
+    <v-footer :app="true" absolute>
       <p>
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic error est
         nihil, facere et voluptatem reiciendis impedit praesentium doloribus
