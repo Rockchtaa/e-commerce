@@ -57,7 +57,7 @@
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 384 512"
               class="svg-inline--fa fa-award fa-w-12 fa-3x"
-              width="20px"
+              width="17px"
             >
               <path
                 fill="currentColor"

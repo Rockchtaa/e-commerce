@@ -16,7 +16,7 @@
     </div>
   </template>
   
-  <style scoped>
+<style scoped>
   /* General banner styles */
   .banner {
     .parent {
@@ -131,5 +131,5 @@
       font-size: 0.7rem;
     }
   }
-  </style>
+</style>
   
