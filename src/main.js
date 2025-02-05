@@ -5,6 +5,10 @@ import {createPinia} from 'pinia';
 
 import mitt from 'mitt';
 const emitter = mitt();
+
+import "swiper/css"
+import "swiper/css/navigation"
+import "swiper/css/pagination";
 // Vuetify imports
 import 'vuetify/styles'; // Import global styles
 import { createVuetify } from 'vuetify';
