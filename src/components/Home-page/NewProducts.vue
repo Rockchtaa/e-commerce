@@ -1,13 +1,17 @@
 <template>
-  <div class="flash-deals">
-    <Swiper
+  <div class="new-products pt-12">
+    <v-container fluid>
+      <h2 class="text-h4 text-center font-weight-bold mb-8">New Products</h2>
+      <v-row>
+        <v-col cols="7" style="margin-top: 125px;">  
+          <Swiper
       :pagination="{ el: '.swiper-pagination', clickable: true }"
-      :navigation="true"
       :modules="modules"
       :slides-per-view="4"
       :space-between="20"
       :autoplay="{ delay: 3000 }"
     >
+    
       <swiper-slide v-for="product in products" :key="product.id">
         <v-card elevation="0" class="pa-5">
           <img
@@ -73,17 +77,23 @@
       </swiper-slide>
       <div class="swiper-pagination"></div>
     </Swiper>
+        </v-col>
+        <v-col cols="5">
+          <img src="../../assets//images/vr-banner.webp" alt="VR Banner" class="w-100" />
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 <script>
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
-import { Pagination, Navigation, Autoplay} from "swiper/modules";
+import { Pagination, Autoplay} from "swiper/modules";
 export default {
   name: "FlashDeals",
   props: { products: { type: Array, required: true } },
   setup() {
     return {
-      modules: [Pagination, Navigation, Autoplay],
+      modules: [Pagination, Autoplay],
     };
   },
   components: { Swiper, SwiperSlide },
@@ -93,9 +103,9 @@ export default {
   methods: {
     truncateDescription(description) {
       const words = description.split(" ");
-      return words.length <= 9
+      return words.length <= 4
         ? description
-        : words.slice(0, 9).join(" ") + "...";
+        : words.slice(0, 4).join(" ");
     },
     calculateDiscountedPrice(price, discountPercentage) {
       return Math.ceil(price - price * (discountPercentage / 100));
