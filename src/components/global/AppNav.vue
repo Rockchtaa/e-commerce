@@ -13,13 +13,8 @@
           <!-- Search Bar Section -->
           <v-col cols="6" class="search-container">
             <div class="search-wrapper">
-              <input
-                type="search"
-                name="navSearch"
-                id="navSearch"
-                placeholder="Search the store"
-                class="search-input"
-              />
+              <input type="search" name="navSearch" id="navSearch" placeholder="Search the store"
+                class="search-input" />
               <v-icon class="search-icon">mdi-magnify</v-icon>
             </div>
           </v-col>
@@ -52,13 +47,9 @@
         <v-row align="center" justify="space-between">
           <!-- Navigation Links -->
           <v-col class="d-flex align-center nav-links" cols="9">
-            <span>Theme Demo</span>
-            <span>Shop</span>
-            <span>Product</span>
-            <span>New In</span>
-            <span>Must Have</span>
-            <span>Collections</span>
-          </v-col>
+            <router-link v-for="link in categories" :key="link.title" :to="link.route" class="nav-link">
+              {{ link.title }}
+            </router-link> </v-col>
 
           <!-- Help & Language Section -->
           <v-col cols="3" class="d-flex justify-end align-center">
@@ -66,15 +57,8 @@
             <span class="help-text">Help</span>
             <div class="d-flex align-center">
               <!-- Activator for the language menu -->
-              <div
-                id="language-select"
-                class="language-select d-flex align-center"
-              >
-                <img
-                  :src="selectedFlag"
-                  :alt="selectedLanguage"
-                  class="flag-icon"
-                />
+              <div id="language-select" class="language-select d-flex align-center">
+                <img :src="selectedFlag" :alt="selectedLanguage" class="flag-icon" />
                 <span style="margin-left: 8px">{{ selectedLanguage }}</span>
                 <v-icon color="white">mdi-chevron-down</v-icon>
               </div>
@@ -82,11 +66,7 @@
               <!-- Language Dropdown Menu -->
               <v-menu activator="#language-select" offset-y>
                 <v-list>
-                  <v-list-item
-                    v-for="option in languageOptions"
-                    :key="option.code"
-                    @click="selectLanguage(option)"
-                  >
+                  <v-list-item v-for="option in languageOptions" :key="option.code">
                     <v-list-item-title>{{ option.label }}</v-list-item-title>
                   </v-list-item>
                 </v-list>
@@ -100,11 +80,14 @@
 </template>
 
 <script>
+import { useProductsStore } from "@/stores/products";
+import { mapState } from 'pinia';
+
 export default {
   inject: ['emitter'],
   data() {
     return {
-      selectedLanguage: "EN / USD", 
+      selectedLanguage: "EN / USD",
       selectedFlag: "https://upload.wikimedia.org/wikipedia/commons/8/83/Flag_of_the_United_Kingdom_%283-5%29.svg",
       languageOptions: [
         {
@@ -123,24 +106,25 @@ export default {
   methods: {
     selectLanguage(option) {
       this.selectedLanguage = option.label;
-      this.selectedFlag = option.flag; 
+      this.selectedFlag = option.flag;
     },
-  
+
     toggleCart() {
       this.emitter.emit("toggleCart");
     }
+  },
+  computed: {
+    ...mapState(useProductsStore, ['categories']),
   },
 };
 </script>
 
 <style scoped>
-/* Logo styling */
 .logo {
-  max-height: 40px; /* Adjust to match the design */
+  max-height: 40px;
   width: auto;
 }
 
-/* Search bar styling */
 .search-container {
   display: flex;
   justify-content: center;
@@ -169,7 +153,6 @@ export default {
   margin-left: 10px;
 }
 
-/* Action Icons styling */
 .action-icons {
   gap: 10px;
 }
@@ -197,7 +180,6 @@ export default {
   font-size: 24px;
 }
 
-/* Secondary Navigation Styling */
 .nav-links span {
   margin: 0 15px;
   font-size: 14px;
@@ -226,5 +208,42 @@ export default {
   margin: 0 15px;
   font-size: 14px;
   color: white;
+}
+.nav-link {
+  margin: 0 15px;
+  font-size: 14px;
+  color: white;
+  text-decoration: none;
+  position: relative;
+  padding: 8px 0;
+  transition: all 0.3s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #FFC107;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #FFC107;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.router-link-active {
+  color: #FFC107;
+}
+
+.router-link-active::after {
+  width: 100%;
+  background-color: #FFC107;
 }
 </style>

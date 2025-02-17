@@ -5,6 +5,32 @@ export const useProductsStore = defineStore("productsModule", {
   state: () => ({
     flashDeals: [],
     newProducts: [],
+    categories: [
+    {
+      title : "Fragrances",
+      route: "/fragrances",
+    },
+    {
+      title : "Furniture",
+      route: "/furniture",
+    },
+    {
+      title : "Beauty",
+      route: "/beauty",
+    },
+    {
+      title : "Groceries",
+      route: "/groceries",
+    },
+    {
+      title : "Mobile-accessories",
+      route: "/mobile-accessories",
+    },
+    {
+      title : "Skin-care",
+      route: "/skin-care",
+    }
+  ],
   }),
   actions: {
     async getProducts() {
