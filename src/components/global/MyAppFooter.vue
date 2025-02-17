@@ -36,7 +36,7 @@
           <!-- Contact Info -->
           <v-col cols="12" sm="6" md="3">
             <h4 class="font-weight-bold text-h5 mb-15">ellamart+</h4>
-            <p class="mb-3"><v-icon small class="mr-5">mdi-map-marker</v-icon> 685 Market Street, San Francisco, CA 94105, US</p>
+            <p class="mb-3"><v-icon small class="mr-5">mdi-map-marker</v-icon> 685 Market Street, San Francisco,</p> <p class="ml-11">CA 94105, USA</p>
             <p class="mb-3"><v-icon small class="mr-5">mdi-phone</v-icon> (415) 555-5555</p>
             <p><v-icon small class="mr-5">mdi-email</v-icon> example@domain.com</p>
 
@@ -54,7 +54,7 @@
         <!-- Payment & Security Logos -->
         <v-row class="mt-5 justify-center">
           <v-col cols="auto" v-for="logo in securityLogos" :key="logo">
-            <v-img :src="logo" contain height="30"></v-img>
+            <img :src="logo" contain height="30">
           </v-col>
         </v-row>
 
@@ -69,7 +69,7 @@
         <!-- Payment Logos -->
         <v-row class="mt-3 justify-center">
           <v-col cols="auto" v-for="logo in paymentLogos" :key="logo">
-            <v-img :src="logo" contain height="30"></v-img>
+            <img :src="logo" contain height="30">
           </v-col>
         </v-row>
       </v-container>
@@ -110,19 +110,12 @@ export default {
         "Store Locations",
       ],
       securityLogos: [
-        "/assets/norton-secured.png",
-        "/assets/truste-verified.png",
-        "/assets/authorize-net.png",
-        "/assets/verified-by-visa.png",
-        "/assets/mastercard-securecode.png",
-        "/assets/bbb-accredited.png",
+          require("@/assets/images/cart-page-cards.webp"),  
       ],
       paymentLogos: [
-        "/assets/visa.png",
-        "/assets/amex.png",
-        "/assets/paypal.png",
-        "/assets/discover.png",
-        "/assets/mastercard.png",
+        require("@/assets/images/shopify.png"),   
+        require("@/assets/images/paypal.png"),   
+        require("@/assets/images/bitcoin.png"),   
       ],
     };
   },
