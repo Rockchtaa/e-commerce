@@ -6,6 +6,7 @@
       <FlashDeals :products="flashDeals" />
       <TopCategories />
       <NewProducts :products="newProducts"/>
+      <QualityFeatures />
     </div>
 </template>
 
@@ -16,6 +17,7 @@ import UpperBanner from '@/components/Home-page/UpperBanner.vue';
 import FlashDeals from '@/components/Home-page/FlashDeals.vue';
 import TopCategories from '@/components/Home-page/TopCategories.vue';
 import NewProducts from '@/components/Home-page/NewProducts.vue';
+import QualityFeatures from '@/components/Home-page/QualityFeatures.vue';
 import { mapActions, mapState } from 'pinia';
 import { useProductsStore } from '@/stores/products';
 export default {
@@ -27,6 +29,7 @@ export default {
         FlashDeals,
         TopCategories,
         NewProducts,
+        QualityFeatures,
     },
     computed: {
     ...mapState(useProductsStore, ['flashDeals', 'newProducts']),
