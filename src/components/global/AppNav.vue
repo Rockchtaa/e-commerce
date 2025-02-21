@@ -47,9 +47,16 @@
         <v-row align="center" justify="space-between">
           <!-- Navigation Links -->
           <v-col class="d-flex align-center nav-links" cols="9">
-            <router-link v-for="link in categories" :key="link.title" :to="link.route" class="nav-link">
-              {{ link.title }}
-            </router-link> </v-col>
+            <router-link 
+              v-for="category in categories" 
+              :key="category.title" 
+              :to="{ name: 'Product_category', params: { category: category.route.substring(1) }}" 
+              :class="{ 'router-link-active': $route.params.category === category.route.substring(1) }" 
+              class="nav-link"
+            >
+              {{ category.title }}
+            </router-link> 
+          </v-col>
 
           <!-- Help & Language Section -->
           <v-col cols="3" class="d-flex justify-end align-center">
@@ -66,7 +73,11 @@
               <!-- Language Dropdown Menu -->
               <v-menu activator="#language-select" offset-y>
                 <v-list>
-                  <v-list-item v-for="option in languageOptions" :key="option.code">
+                  <v-list-item 
+                    v-for="option in languageOptions" 
+                    :key="option.code"
+                    @click="selectLanguage(option)"
+                  >
                     <v-list-item-title>{{ option.label }}</v-list-item-title>
                   </v-list-item>
                 </v-list>
@@ -209,6 +220,7 @@ export default {
   font-size: 14px;
   color: white;
 }
+
 .nav-link {
   margin: 0 15px;
   font-size: 14px;
