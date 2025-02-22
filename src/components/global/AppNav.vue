@@ -6,7 +6,7 @@
       <v-container fluid>
         <v-row align="center" justify="space-between">
           <!-- Logo Section -->
-          <v-col cols="3" class="d-flex align-center">
+          <v-col cols="3" class="d-flex align-center" @click="navigateToHome">
             <img src="../../assets/images/logo.png" alt="logo" class="logo" />
           </v-col>
 
@@ -122,6 +122,9 @@ export default {
 
     toggleCart() {
       this.emitter.emit("toggleCart");
+    },
+    navigateToHome() {
+      this.$router.push({ name: "Home" });
     }
   },
   computed: {
