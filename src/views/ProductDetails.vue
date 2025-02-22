@@ -96,6 +96,7 @@ export default {
         const productId = this.$route.params.id;
         const response = await axios.get(`https://dummyjson.com/products/${productId}`);
         this.product = response.data;
+        console.log("Product details:", this.product);
         this.selectedImage = this.product.thumbnail; // Set the default image
       } catch (error) {
         console.error("Error fetching product details:", error);

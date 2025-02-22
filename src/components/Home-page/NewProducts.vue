@@ -35,7 +35,8 @@
                 text-transform: none;
                 border-radius: 30px;
                 min-width: 150px;
-              " variant="outlined">
+              " variant="outlined"
+                    @click="navigateToProductDetails(product.id)">
                     Choose Options
                   </v-btn>
                 </div>
@@ -76,6 +77,9 @@ export default {
     calculateDiscountedPrice(price, discountPercentage) {
       return Math.ceil(price - price * (discountPercentage / 100));
     },
+    navigateToProductDetails(productId) {
+        this.$router.push({ name: 'ProductDetails', params: { id: productId } });
+    }
   },
 };
 </script>

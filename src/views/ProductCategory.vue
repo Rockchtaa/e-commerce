@@ -380,12 +380,12 @@ import axios from "axios";
       },
       navigateToProductDetails(productId) {
         this.$router.push({ name: 'ProductDetails', params: { id: productId } });
-      },
+      }
     }
   };
   </script>
   
-  <style scoped>
+<style scoped>
   .product-card {
     transition: transform 0.3s, box-shadow 0.3s;
     position: relative;
@@ -432,4 +432,4 @@ import axios from "axios";
     transform: translateY(-3px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   }
-  </style>
+</style>
