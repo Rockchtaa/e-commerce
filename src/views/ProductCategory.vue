@@ -13,7 +13,7 @@
         <v-row class="mb-4">
           <v-col cols="12" md="3">
             <!-- Category Filters -->
-            <v-card class="mb-4">
+            <v-card class="mb-4" > 
               <v-card-title class="text-subtitle-1 font-weight-medium">
                 Filters
               </v-card-title>
@@ -108,7 +108,7 @@
                 sm="6"
                 md="4"
               >
-                <v-card class="product-card h-100" hover>
+                <v-card  @click="navigateToProductDetails(product.id)" class="product-card h-100" hover>
                   <div class="position-relative">
                     <v-img
                       :src="product.thumbnail"
@@ -155,7 +155,7 @@
   
             <!-- Products List View -->
             <div v-else>
-              <v-card v-for="product in displayedProducts" :key="product.id" class="mb-4 product-list-item" hover>
+              <v-card @click="navigateToProductDetails(product.id)" v-for="product in displayedProducts" :key="product.id" class="mb-4 product-list-item" hover>
                 <div class="d-flex flex-column flex-sm-row">
                   <v-img
                     :src="product.thumbnail"
@@ -377,7 +377,10 @@ import axios from "axios";
             // Default sorting (featured) - use API default order
             break;
         }
-      }
+      },
+      navigateToProductDetails(productId) {
+        this.$router.push({ name: 'ProductDetails', params: { id: productId } });
+      },
     }
   };
   </script>
