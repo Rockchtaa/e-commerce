@@ -1,4 +1,3 @@
-/************* ✨ Codeium Command 🌟 *************/
 <template>
   <div class="new-products pt-12">
     <v-container fluid>
