@@ -228,6 +228,7 @@
 import axios from "axios";
   
   export default {
+    inject: ['emitter'],
     name: "ProductCategory",
     data() {
       return {
