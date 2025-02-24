@@ -23,7 +23,7 @@
           </div>
           <p class="text-body-1 mb-4">{{ product.description }}</p>
           <div class="d-flex align-center mb-4">
-            <span class="text-h5 mr-2">${{ product.price }}</span>
+            <span class="text-h5 mr-2">${{ product.price * quantity }}</span>
             <span v-if="product.discountPercentage > 0" class="text-decoration-line-through text-body-2 text-grey">
               ${{ Math.round(product.price * (100 / (100 - product.discountPercentage))) }}
             </span>
