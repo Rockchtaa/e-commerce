@@ -147,7 +147,7 @@
                     <p class="text-body-2 text-truncate-2">{{ product.description }}</p>
                   </v-card-text>
                   <v-card-actions>
-                    <v-btn block color="primary">Add to Cart</v-btn>
+                    <v-btn block color="primary" @click="addToCart(product)">Add to Cart</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-col>
@@ -191,7 +191,7 @@
                         </span>
                       </div>
                       <div class="d-flex">
-                        <v-btn color="primary" class="mr-2">Add to Cart</v-btn>
+                        <v-btn block color="primary" @click="addToCart(product)">Add to Cart</v-btn>
                         <v-btn icon variant="text">
                           <v-icon>mdi-heart-outline</v-icon>
                         </v-btn>
@@ -380,6 +380,9 @@ import axios from "axios";
       },
       navigateToProductDetails(productId) {
         this.$router.push({ name: 'ProductDetails', params: { id: productId } });
+      },
+      addToCart(product) {
+        this.emitter.emit('addToCart', { ...product, quantity: 1 });
       }
     }
   };

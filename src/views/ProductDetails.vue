@@ -29,7 +29,7 @@
             </span>
           </div>
 
-          <v-btn color="primary" class="mr-2">Add to Cart </v-btn>
+          <v-btn color="primary" class="mr-2" @click="addToCart">Add to Cart</v-btn>
           <v-btn icon variant="text">
             <v-icon>mdi-heart-outline</v-icon>
           </v-btn>
@@ -74,6 +74,7 @@
 import axios from "axios";
 
 export default {
+  inject: ['emitter'],
   name: "ProductDetails",
   data() {
     return {
@@ -110,7 +111,10 @@ export default {
     },
     decreaseQuantity() {
       if (this.quantity > 1) this.quantity--;
-    }
+    },
+    addToCart() {
+      this.emitter.emit('addToCart', { ...this.product, quantity: this.quantity });
+    },
   },
 };
 </script>
