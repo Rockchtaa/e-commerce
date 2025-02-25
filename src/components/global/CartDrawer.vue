@@ -31,7 +31,7 @@
               ></v-img>
               <div class="ml-3 flex-grow-1">
                 <div class="text-subtitle-2 font-weight-medium">{{ item.title }}</div>
-                <div class="text-body-2 text-grey">{{ item.size }}</div>
+                <div class="text-body-2 text-grey" v-if="item.size">{{ item.size }}</div>
                 <div class="text-body-2">${{ item.price }}</div>
                 <div class="d-flex align-center mt-2">
                   <v-btn
@@ -118,19 +118,38 @@ export default {
     }
   },
   mounted() {
+    // Load cart items from localStorage when component mounts
+    const savedCart = localStorage.getItem('cartItems');
+    if (savedCart) {
+      this.cartItems = JSON.parse(savedCart);
+    }
+    
+    // Original event listeners
     this.emitter.on('toggleCart', () => {
       this.drawer = !this.drawer;
     });
-    
+   
     this.emitter.on('addToCart', (product) => {
       this.addItem(product);
       this.drawer = true;
+    });
+   
+    // New event listeners for cart synchronization
+    this.emitter.on('getCartItems', () => {
+      this.emitter.emit('updateCartItems', this.cartItems);
+    });
+   
+    this.emitter.on('updateCart', (updatedItems) => {
+      this.cartItems = updatedItems;
+      // Save to localStorage
+      localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+      this.emitter.emit('updateCartItems', this.cartItems);
     });
   },
   methods: {
     addItem(product) {
       const existingItem = this.cartItems.find(item => item.id === product.id);
-      
+     
       if (existingItem) {
         existingItem.quantity += product.quantity || 1;
       } else {
@@ -139,6 +158,12 @@ export default {
           quantity: product.quantity || 1
         });
       }
+     
+      // Save to localStorage
+      localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+      
+      // Emit event to update any other components using cart data
+      this.emitter.emit('updateCartItems', this.cartItems);
     },
     updateQuantity(item, change) {
       const newQuantity = item.quantity + change;
@@ -147,12 +172,24 @@ export default {
       } else {
         this.removeItem(item);
       }
+     
+      // Save to localStorage
+      localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+      
+      // Emit event to update any other components using cart data
+      this.emitter.emit('updateCartItems', this.cartItems);
     },
     removeItem(item) {
       const index = this.cartItems.indexOf(item);
       if (index > -1) {
         this.cartItems.splice(index, 1);
       }
+     
+      // Save to localStorage
+      localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+      
+      // Emit event to update any other components using cart data
+      this.emitter.emit('updateCartItems', this.cartItems);
     },
     checkout() {
       console.log('Proceeding to checkout with items:', this.cartItems);
