@@ -91,7 +91,7 @@
           Checkout
         </v-btn>
 
-        <v-btn block class="mt-4" @click="drawer = false">
+        <v-btn block class="mt-4" @click="goToCart">
           View Cart
         </v-btn>
       </div>
@@ -156,7 +156,11 @@ export default {
     },
     checkout() {
       console.log('Proceeding to checkout with items:', this.cartItems);
-    }
+    },
+    goToCart() {
+      this.drawer = false;
+      this.$router.push({ name: 'view-cart' });
+    },
   }
 };
 </script>
