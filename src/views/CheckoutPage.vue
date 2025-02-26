@@ -1,6 +1,5 @@
 <template>
   <div class="checkout-container">
-    <h1>Checkout</h1>
     <div class="checkout-form">
       <div class="shipping-info">
         <h2>Shipping Information</h2>
