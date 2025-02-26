@@ -33,11 +33,11 @@
         <h2>Order Summary</h2>
         <div class="summary-items">
           <div v-for="item in cartItems" :key="item.id" class="cart-item">
-            <img :src="item.image" :alt="item.name" class="item-image">
+            <img :src="item.thumbnail || item.image" :alt="item.title || item.name" class="item-image">
             <div class="item-details">
-              <h3>{{ item.name }}</h3>
+              <h3>{{ item.title || item.name }}</h3>
               <p>Quantity: {{ item.quantity }}</p>
-              <p>Price: ${{ item.price * item.quantity }}</p>
+              <p>Price: ${{ (item.price * item.quantity).toFixed(2) }}</p>
             </div>
           </div>
         </div>
@@ -47,7 +47,7 @@
         </div>
         <div class="total">
           <span>Shipping:</span>
-          <span>${{ shippingCost }}</span>
+          <span>{{ subtotal >= 42 ? 'Free' : '$' + shippingCost.toFixed(2) }}</span>
         </div>
         <div class="total final">
           <span>Total:</span>
@@ -59,17 +59,19 @@
 </template>
 
 <script>
-import { useCartStore } from '../stores/cart'
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import mitt from 'mitt';
 
+const emitter = mitt();
 export default {
   name: 'Checkout-page',
+  inject: ['emitter'],
   setup() {
-    const cartStore = useCartStore()
     const router = useRouter()
     const processing = ref(false)
     const errors = ref({})
+    const cartItems = ref([])
 
     const shippingInfo = ref({
       fullName: '',
@@ -79,10 +81,17 @@ export default {
       zipCode: ''
     })
 
-    const cartItems = computed(() => cartStore.items)
-    const subtotal = computed(() => cartStore.total)
-    const shippingCost = computed(() => 10.00)
-    const total = computed(() => subtotal.value + shippingCost.value)
+    const subtotal = computed(() => {
+      return cartItems.value.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)
+    })
+    
+    const shippingCost = computed(() => {
+      return parseFloat(subtotal.value) >= 42 ? 0 : 4.99
+    })
+    
+    const total = computed(() => {
+      return (parseFloat(subtotal.value) + shippingCost.value).toFixed(2)
+    })
 
     const validateForm = () => {
       errors.value = {}
@@ -102,8 +111,10 @@ export default {
         // Simulate API call
         await new Promise(resolve => setTimeout(resolve, 2000))
         
-        // Clear cart after successful order
-        cartStore.clearCart()
+        // Clear cart after successful order   ========> Optional, actually no need for it
+        localStorage.removeItem('cartItems')
+        cartItems.value = []
+        emitter.emit('updateCartItems', [])
         
         // Redirect to success page
         router.push('/order-success')
@@ -114,6 +125,19 @@ export default {
       }
     }
 
+    onMounted(() => {
+      const savedCart = localStorage.getItem('cartItems')
+      if (savedCart) {
+        cartItems.value = JSON.parse(savedCart)
+      }
+      emitter.on('updateCartItems', (items) => {
+        cartItems.value = items
+      })
+      
+      // Request latest cart items
+      emitter.emit('getCartItems')
+    })
+
     return {
       shippingInfo,
       cartItems,
@@ -122,6 +146,7 @@ export default {
       total,
       processing,
       errors,
+      emitter,
       handleSubmit
     }
   }
