@@ -192,7 +192,8 @@ export default {
       this.emitter.emit('updateCartItems', this.cartItems);
     },
     checkout() {
-      console.log('Proceeding to checkout with items:', this.cartItems);
+      this.drawer = false;
+      this.$router.push('/checkout-page');
     },
     goToCart() {
       this.drawer = false;
