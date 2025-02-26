@@ -67,7 +67,7 @@
       </v-card>
 
       <div class="d-flex flex-column flex-sm-row justify-content-between gap-4 w-50">
-        <v-btn block color="primary" @click="checkout" class="mb-2 mb-sm-0">
+        <v-btn block color="primary" @click="checkout" :disabled="!cartItems.length" class="mb-2 mb-sm-0">
           Proceed to Checkout
         </v-btn>
         <v-btn block variant="outlined" @click="continueShopping">
@@ -142,7 +142,7 @@ export default {
       return (subtotalValue + shipping).toFixed(2);
     },
     checkout() {
-      console.log('Proceeding to checkout with items:', this.cartItems);
+      this.$router.push('/checkout-page');
     },
     continueShopping() {
       this.$router.push('/');
@@ -165,5 +165,24 @@ export default {
   .flex-sm-row {
     flex-direction: column;
   }
+}
+.checkout-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.checkout-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.checkout-button:hover:not(:disabled) {
+  background-color: #45a049;
 }
 </style>
