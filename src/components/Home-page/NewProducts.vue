@@ -37,7 +37,7 @@
                       )
                     }}
                   </v-card-text>
-                  <v-btn-toggle v-model="selectedImages[product.id]" mandatory class="overflow-x-auto">
+                  <v-btn-toggle v-model="selectedImages[product.id]" mandatory class="overflow-x-hidden">
                     <v-btn v-for="(pic, i) in product.images" :key="i" :value="pic" variant="text">
                       <img :src="pic" :alt="product.title" width="50" height="50" style="object-fit: cover" />
                     </v-btn>

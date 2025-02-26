@@ -58,7 +58,7 @@
             <v-btn-toggle
               v-model="selectedImages[product.id]"
               mandatory
-              class="overflow-x-auto"
+              class="overflow-x-hidden"
             >
               <v-btn
                 v-for="(pic, i) in product.images"
