@@ -14,7 +14,7 @@
           {{ cartItems.length }} item{{ cartItems.length > 1 ? 's' : '' }}
         </div>
         <div class="text-body-2 text-grey mb-2">
-          Only ${{ (42 - subtotal).toFixed(2) }} away from Free Shipping
+          {{ subtotal >= 42 ? 'You have Free Shipping!' : `Only $${(42 - subtotal).toFixed(2)} away from Free Shipping` }}
         </div>
 
         <v-divider></v-divider>
